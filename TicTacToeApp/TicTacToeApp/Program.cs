@@ -27,18 +27,62 @@ void OutputBoard(string [,] board)
     Console.WriteLine(splitter);
     Console.WriteLine(board[2, 0] + "|" + board[2, 1] + "|" + board[2, 2]);
 }
+int IsGameOver(string[,] board)
+{
+    //checks horizontal lines
+    if (board[0, 0] == board[0, 1] && board[0, 1] == board[0, 2] && board[0,0] != " " && board[0, 1] != " " && board[0, 2] != " ")
+    {
+        return 100;
+    }
+    else if (board[1, 0] == board[1, 1] && board[1, 1] == board[1, 2] && board[1, 0] != " " && board[1, 1] != " " && board[2, 2] != " ")
+    {
+        return 100;
+    }
+    else if (board[2, 0] == board[2, 1] && board[2, 1] == board[2, 2] && board[2, 0] != " " && board[2, 1] != " " && board[2, 2] != " ")
+    {
+        return 100;
+    }
+
+    // checks vertical lines
+    else if (board[0, 0] == board[1, 0] && board[1, 0] == board[2, 0] && board[0, 0] != " " && board[1, 0] != " " && board[2, 0] != " ")
+    {
+        return 100;
+    }
+    else if (board[0, 1] == board[1, 1] && board[1, 1] == board[2, 1] && board[0, 1] != " " && board[1, 1] != " " && board[2, 1] != " ")
+    {
+        return 100;
+    }
+    else if (board[0, 2] == board[1, 2] && board[1, 2] == board[2, 2] && board[0, 2] != " " && board[1, 2] != " " && board[2, 2] != " ")
+    {
+        return 100;
+    }
+
+    //checks diagonals
+    else if (board[0, 0] == board[1, 1] && board[1, 1] == board[2, 2] && board[0, 0] != " " && board[1, 1] != " " && board[2, 2] != " ")
+    {
+        return 100;
+    }
+    else if (board[0, 2] == board[1, 1] && board[1, 1] == board[2, 0] && board[0, 2] != " " && board[1, 1] != " " && board[2, 0] != " ")
+    {
+        return 100;
+    }
+    else return 0;
+}
+
 void Main()
 {
-    string[,] board = {
+    string[,] board =
+    {
         { " "," "," " },
         { " "," "," " },
         { " "," "," " }
-    };
+        };
 
     string splitter = "-----";
     string splitterLong = splitter + splitter;
     int i = 0;
     string write = "X";
+    
     while (i <= 9)
     {
         CellNumberOutput();
@@ -67,11 +111,22 @@ void Main()
             }
         }
         OutputBoard(board);
-        //win condition function call here
-
+        i += IsGameOver(board);
         Console.WriteLine(splitterLong);
     }
-}
+    string player = " ";
+    if (write == "X")
+    {
+        player = "O";
+    }
+    else
+    {
+        player = "X";
+    }
+    Console.WriteLine("Congratulations " + player + " you won!!!!");
+};
 
 Main();
+
+
 
